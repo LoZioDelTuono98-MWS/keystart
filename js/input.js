@@ -23,7 +23,24 @@ KS.input = (() => {
     else if (cmd === 0x80 || (cmd === 0x90 && d2 === 0)) emit('off', d1, 0, 'midi');
   }
 
+  // Dentro l'APK Android: le note arrivano dal modulo nativo "Midi".
+  const cap = window.Capacitor;
+  const isApp = !!(cap && cap.isNativePlatform && cap.isNativePlatform());
+
+  function nativeStatus(s) {
+    const list = (s && s.devices) || [];
+    if (s && s.supported === false) setStatus({ state: 'unsupported', name: '' });
+    else setStatus(list.length ? { state: 'connected', name: list.join(', ') } : { state: 'none', name: '' });
+  }
+
+  function initNative() {
+    cap.addListener('Midi', 'midi', (ev) => handleMidi({ data: [ev.status, ev.d1, ev.d2] }));
+    cap.addListener('Midi', 'status', nativeStatus);
+    cap.nativePromise('Midi', 'getStatus', {}).then(nativeStatus).catch(() => setStatus({ state: 'unsupported', name: '' }));
+  }
+
   async function initMIDI() {
+    if (isApp) { initNative(); return; }
     if (!navigator.requestMIDIAccess) { setStatus({ state: 'unsupported', name: '' }); return; }
     try {
       const access = await navigator.requestMIDIAccess({ sysex: false });
@@ -73,5 +90,5 @@ KS.input = (() => {
   window.addEventListener('pointerdown', unlock, { once: true });
   window.addEventListener('keydown', unlock, { once: true });
 
-  return { on, onStatus, emit, initMIDI, held: () => [...held], getStatus: () => status };
+  return { on, onStatus, emit, initMIDI, isApp, held: () => [...held], getStatus: () => status };
 })();

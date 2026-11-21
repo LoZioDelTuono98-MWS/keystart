@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">KeyStart</string>
+    <string name="title_activity_main">KeyStart</string>
+    <string name="package_name">com.keystart.app</string>
+    <string name="custom_url_scheme">com.keystart.app</string>
+</resources>

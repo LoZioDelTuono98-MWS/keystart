@@ -1,6 +1,6 @@
 // Service worker: l'app funziona anche offline dopo la prima apertura.
 // Cambia VERSION a ogni aggiornamento per forzare il refresh della cache.
-const VERSION = 'keystart-v1';
+const VERSION = 'keystart-v2';
 const FILES = [
   './', 'index.html', 'css/style.css', 'manifest.webmanifest',
   'js/storage.js', 'js/notes.js', 'js/audio.js', 'js/input.js', 'js/keyboard-view.js', 'js/songs.js',

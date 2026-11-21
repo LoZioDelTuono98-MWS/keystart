@@ -31,7 +31,7 @@ KS.app = (() => {
     const map = {
       idle: ['…', 'grey'],
       connected: ['🎹 ' + s.name, 'ok'],
-      none: ['Nessuna tastiera MIDI', 'grey'],
+      none: [KS.input.isApp ? 'Collega la tastiera (USB-C)' : 'Nessuna tastiera MIDI', 'grey'],
       unsupported: ['MIDI non supportato: usa Chrome o Edge', 'warn'],
       denied: ['Permesso MIDI negato', 'warn'],
     };
@@ -76,7 +76,7 @@ KS.app = (() => {
     KS.keyboard.setRange(48, 72);
     KS.input.initMIDI();
     go('home');
-    if ('serviceWorker' in navigator && /^https:|^http:\/\/localhost/.test(location.href)) {
+    if (!KS.input.isApp && 'serviceWorker' in navigator && /^https:|^http:\/\/localhost/.test(location.href)) {
       navigator.serviceWorker.register('sw.js').catch(() => {});
     }
   }

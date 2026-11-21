@@ -1,0 +1,8 @@
+{
+  "appId": "com.keystart.app",
+  "appName": "KeyStart",
+  "webDir": "www",
+  "android": {
+    "backgroundColor": "#14151f"
+  }
+}
