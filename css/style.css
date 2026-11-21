@@ -1,0 +1,147 @@
+/* KeyStart: grande, chiaro, poco testo. Font ad alta leggibilità. */
+:root {
+  --bg: #14151f;
+  --panel: #1e2030;
+  --panel2: #282b40;
+  --text: #f4f4f8;
+  --muted: #a3a6bf;
+  --ok: #5fd35f;
+  --bad: #ff5a5a;
+  --accent: #ffd93d;
+  --c: #4d8dff;
+  --radius: 18px;
+  --font: "Lexend", "Atkinson Hyperlegible", Verdana, Tahoma, system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 18px;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+button { font: inherit; color: inherit; cursor: pointer; border: 0; }
+button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+/* ---- Barra in alto ---- */
+.topbar {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 16px; padding-top: max(10px, env(safe-area-inset-top));
+  background: var(--panel);
+}
+.topbar h1 { font-size: 22px; margin: 0; flex: 1; }
+.back { font-size: 26px; width: 48px; height: 48px; border-radius: 14px; background: var(--panel2); }
+.pill { font-size: 14px; padding: 6px 12px; border-radius: 999px; background: var(--panel2); color: var(--muted);
+        max-width: 50vw; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pill.ok { background: #1f3d24; color: #9ff09f; }
+.pill.warn { background: #43301a; color: #ffcc80; }
+
+/* ---- Schermata ---- */
+.screen { flex: 1; padding: 20px 16px; max-width: 900px; width: 100%; margin: 0 auto;
+          display: flex; flex-direction: column; align-items: center; gap: 18px; }
+.hello { font-size: 26px; margin: 4px 0 0; font-weight: 600; }
+.tip, .muted { color: var(--muted); text-align: center; margin: 0; }
+.small { font-size: 15px; }
+
+.tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; width: 100%; }
+.tile { background: var(--panel); border-radius: var(--radius); padding: 22px 16px; text-align: left;
+        display: flex; flex-direction: column; gap: 4px; border-bottom: 5px solid var(--tc, #4d8dff);
+        transition: transform .1s; }
+.tile:active { transform: scale(.97); }
+.tile.t1 { --tc: #ff5a5a; } .tile.t2 { --tc: #ffd93d; } .tile.t3 { --tc: #5fd35f; } .tile.t4 { --tc: #4d8dff; }
+.tile-emoji { font-size: 38px; }
+.tile-name { font-size: 22px; font-weight: 700; }
+.tile-desc { font-size: 15px; color: var(--muted); }
+
+/* ---- Carta con la nota grande ---- */
+.notecard { width: 100%; max-width: 520px; border-radius: 28px; padding: 26px 16px; text-align: center;
+            background: var(--panel); border: 4px solid var(--c); box-shadow: 0 0 40px -10px var(--c);
+            transition: border-color .15s, box-shadow .15s; }
+.ask { color: var(--muted); font-size: 20px; }
+.bignote { font-size: clamp(72px, 20vw, 140px); font-weight: 800; line-height: 1.05; color: var(--c); }
+.bignote.many { font-size: clamp(44px, 11vw, 80px); }
+.bignote.idle { color: var(--muted); }
+.subnote { font-size: 32px; color: var(--muted); min-height: 1.3em; }
+.chord { font-size: 24px; font-weight: 700; color: var(--accent); min-height: 1.4em; }
+.notecard.pop { animation: pop .18s ease-out; }
+.notecard.good { animation: good .35s ease-out; }
+.notecard.bad { animation: bad .35s ease-out; }
+@keyframes pop { from { transform: scale(.96); } to { transform: scale(1); } }
+@keyframes good { 0% { background: #1f4a26; transform: scale(1.04); } 100% { background: var(--panel); transform: scale(1); } }
+@keyframes bad { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-12px); background: #4a1f1f; } 75% { transform: translateX(12px); } }
+
+/* ---- Gioco ---- */
+.stats { display: flex; gap: 10px; width: 100%; max-width: 520px; justify-content: space-between; }
+.stat { background: var(--panel); padding: 8px 14px; border-radius: 12px; font-weight: 700; font-size: 20px; min-width: 70px; text-align: center; }
+.stat:empty { visibility: hidden; }
+.time.hurry { color: var(--bad); }
+.levels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; width: 100%; max-width: 520px; }
+.lvl { background: var(--panel); border-radius: 14px; padding: 14px; font-weight: 700; font-size: 19px;
+       display: flex; flex-direction: column; border: 3px solid transparent; }
+.lvl small { font-weight: 400; color: var(--muted); font-size: 14px; }
+.lvl.sel { border-color: var(--accent); }
+.lvl.locked { opacity: .45; cursor: default; }
+.go { background: var(--accent); color: #1a1a1a; font-size: 30px; font-weight: 800; padding: 18px 56px; border-radius: 999px; }
+.go:active { transform: scale(.97); }
+.ghost { background: var(--panel2); padding: 12px 22px; border-radius: 999px; font-size: 18px; }
+.danger { color: #ff9a9a; }
+.result { text-align: center; }
+.result-emoji { font-size: 72px; }
+.result-score { font-size: 44px; font-weight: 800; }
+.unlock { color: var(--accent); font-weight: 700; font-size: 22px; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+
+/* ---- Canzoni ---- */
+.songlist { display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 620px; }
+.song { background: var(--panel); border-radius: var(--radius); padding: 16px 18px; text-align: left;
+        display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto auto; column-gap: 12px; }
+.song-title { font-size: 21px; font-weight: 700; }
+.song-info { grid-row: 2; color: var(--muted); font-size: 15px; }
+.song-stars { grid-row: 1 / span 2; grid-column: 2; align-self: center; color: var(--accent); font-size: 20px; }
+.song-head { font-size: 22px; font-weight: 700; }
+.bar { width: 100%; max-width: 520px; height: 12px; background: var(--panel2); border-radius: 999px; overflow: hidden; }
+.bar-fill { height: 100%; width: 0; background: var(--ok); transition: width .2s; }
+.upcoming { display: flex; gap: 8px; min-height: 46px; flex-wrap: wrap; justify-content: center; }
+.bubble { padding: 6px 14px; border-radius: 999px; font-weight: 700; font-size: 20px; background: var(--panel2); color: var(--c); border: 2px solid var(--c); }
+
+/* ---- Impostazioni ---- */
+.set { width: 100%; max-width: 560px; }
+.set-label { font-weight: 700; margin-bottom: 6px; }
+.seg { display: flex; gap: 6px; background: var(--panel); padding: 6px; border-radius: 14px; }
+.seg button { flex: 1; padding: 12px 6px; border-radius: 10px; background: transparent; font-size: 17px; }
+.seg button.sel { background: var(--accent); color: #1a1a1a; font-weight: 700; }
+
+/* ---- Tastiera ---- */
+.keys-wrap { position: sticky; bottom: 0; z-index: 5; background: var(--panel); padding: 8px 8px max(10px, env(safe-area-inset-bottom)); }
+.octave-hint { text-align: center; color: var(--accent); font-weight: 700; min-height: 1.4em; font-size: 16px; }
+.keyboard { position: relative; height: clamp(130px, 24vh, 220px); max-width: 1100px; margin: 0 auto; touch-action: none; }
+.key { position: absolute; top: 0; border-radius: 0 0 10px 10px; }
+.key.white { height: 100%; background: #f6f6f2; border: 1px solid #2a2a2a; z-index: 1;
+             display: flex; flex-direction: column; justify-content: flex-end; align-items: center; padding-bottom: 6px; color: #222; }
+.key.black { height: 62%; background: #15151a; z-index: 2; border: 1px solid #000; }
+.key .strip { position: absolute; left: 0; right: 0; bottom: 0; height: 7px; border-radius: 0 0 9px 9px; }
+.key .lab { font-size: clamp(10px, 1.6vw, 15px); font-weight: 700; margin-bottom: 6px; }
+.key .oct { position: absolute; top: 6px; font-size: 11px; color: #888; }
+.key.down.white { background: var(--c); }
+.key.down.black { background: var(--c); }
+.key.target { animation: glow 1s ease-in-out infinite; }
+.key.white.target { background: color-mix(in srgb, var(--c) 55%, white); }
+.key.black.target { background: color-mix(in srgb, var(--c) 70%, black); }
+@keyframes glow { 50% { filter: brightness(1.25); box-shadow: 0 0 18px var(--c); } }
+
+@media (max-width: 520px) {
+  .tiles { grid-template-columns: 1fr; }
+  .tile { flex-direction: row; align-items: center; gap: 14px; padding: 16px; }
+  .tile-desc { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
