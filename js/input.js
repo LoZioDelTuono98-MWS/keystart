@@ -90,5 +90,11 @@ KS.input = (() => {
   window.addEventListener('pointerdown', unlock, { once: true });
   window.addEventListener('keydown', unlock, { once: true });
 
-  return { on, onStatus, emit, initMIDI, isApp, held: () => [...held], getStatus: () => status };
+  // Bluetooth (solo nell'app Android)
+  const ble = {
+    scan: () => cap.nativePromise('Midi', 'scanBle', {}),
+    connect: (address) => cap.nativePromise('Midi', 'connectBle', { address }),
+  };
+
+  return { on, onStatus, emit, initMIDI, isApp, ble, held: () => [...held], getStatus: () => status };
 })();

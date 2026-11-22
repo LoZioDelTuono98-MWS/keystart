@@ -92,5 +92,22 @@ KS.audio = (() => {
     });
   }
 
-  return { ensure, noteOn, noteOff, cue };
+  // Click del metronomo (accent = primo battito).
+  function click(accent) {
+    const c = ensure();
+    if (!c) return;
+    const t = c.currentTime;
+    const o = c.createOscillator();
+    const g = c.createGain();
+    o.type = 'square';
+    o.frequency.value = accent ? 1600 : 1000;
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.linearRampToValueAtTime(accent ? 0.12 : 0.07, t + 0.002);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.05);
+    o.connect(g).connect(master);
+    o.start(t);
+    o.stop(t + 0.06);
+  }
+
+  return { ensure, noteOn, noteOff, cue, click };
 })();

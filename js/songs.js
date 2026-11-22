@@ -66,5 +66,21 @@ KS.songs = (() => {
     });
   }
 
-  return { list: () => LIST, get: (id) => LIST.find((s) => s.id === id), parse };
+  // Converte una canzone (inclusa o importata) in passi: { notes: [..], t: ms inizio, d: ms durata }.
+  function steps(song) {
+    if (song.steps) return song.steps;
+    const beat = 60000 / song.bpm;
+    let t = 0;
+    return parse(song).map((s) => {
+      const st = { notes: [s.note], t, d: s.dur * beat };
+      t += s.dur * beat;
+      return st;
+    });
+  }
+
+  function find(id) {
+    return LIST.find((s) => s.id === id) || KS.library.songs().find((s) => s.id === id);
+  }
+
+  return { list: () => LIST, get: find, parse, steps };
 })();

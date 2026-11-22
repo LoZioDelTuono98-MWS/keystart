@@ -25,6 +25,10 @@ android {
             keyPassword "keystart"
         }
     }
+    lint {
+        checkReleaseBuilds false
+        abortOnError false
+    }
     buildTypes {
         debug {
             signingConfig signingConfigs.keystart

@@ -4,13 +4,18 @@ App per imparare a suonare la tastiera MIDI, pensata per chi si distrae facilmen
 
 Testata con la **M-VAVE SMK-25 II**, ma funziona con qualsiasi tastiera MIDI.
 
-## Cosa c'è (v1)
+## Cosa c'è
 
-- **Suona libero**: premi un tasto e vedi la nota in grande, col suo colore. Riconosce gli accordi maggiori e minori.
-- **Trova la nota**: gioco da 60 secondi con 4 livelli da sbloccare (Do-Re-Mi → tutti i tasti, anche i neri).
-- **Canzoni**: la canzone ti **aspetta** finché non premi il tasto giusto. Con 👂 *Ascolta* la senti prima suonata.
-  Brani inclusi (pubblico dominio): Scala di Do, Fra Martino, Inno alla gioia, Jingle Bells, Per Elisa.
-- **Impostazioni**: nomi delle note in Do-Re-Mi, in C-D-E o entrambi; suono dell'app on/off; nomi sui tasti.
+- **Suona libero**: premi un tasto e vedi la nota in grande, col suo colore. Riconosce gli accordi (anche le settime).
+- **Trova la nota**: gioco da 60 secondi, 4 livelli da sbloccare.
+- **Leggi la nota**: pentagramma in chiave di violino e di basso, con tagli e diesis. 5 livelli.
+- **Accordi**: l'app mostra un accordo, tu lo suoni in qualsiasi rivolto. 5 livelli, dalle triadi alle settime.
+- **Giri**: giri di accordi da suonare "aspetta me" o **a tempo** col metronomo. Puoi scrivere i giri della band (es. `Am F C G` oppure `Lam Fa Do Sol`).
+- **Canzoni**: la canzone ti aspetta finché non premi il tasto giusto. Brani di pubblico dominio inclusi,
+  più i **tuoi file MIDI**: scegli la traccia, solo melodia o anche accordi. Restano solo sul tuo dispositivo.
+- **Aspetto**: 6 temi colore (Mare, Laguna, Tramonto, Ulivo, Notte, Sabbia), chiaro / scuro / automatico.
+- **Giorni di fila**: la home conta i giorni in cui ti sei esercitato.
+- **APK Android**: tastiera via USB-C oppure **Bluetooth** (Impostazioni → Cerca tastiere Bluetooth).
 
 ## Come si usa
 
@@ -34,13 +39,12 @@ Nota: su un account gratuito GitHub Pages funziona solo con repo **pubbliche**.
 
 Provarla in locale: basta aprire `index.html` con Chrome, oppure `python3 -m http.server` e andare su `http://localhost:8000`.
 
-## In arrivo
+## APK Android
 
-- Leggi la nota sul pentagramma
-- Accordi, rivolti e giri di accordi
-- Importa i tuoi file MIDI (restano solo sul tuo dispositivo)
-- Sequenze di accordi delle canzoni della band
-- APK Android
+A ogni push su `main` GitHub compila l'APK e la pubblica tra le
+[Release](../../releases/latest). Ogni versione si installa sopra la precedente.
+
+Simboli musicali: font Bravura (SIL Open Font License). Font: Inter e Space Grotesk (SIL OFL).
 
 ## Struttura
 

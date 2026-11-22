@@ -100,7 +100,16 @@ KS.keyboard = (() => {
       : '';
   }
 
-  function setTargets(list) { targets = new Set(list); applyTargets(); }
+  // Se va bene qualsiasi ottava, una nota fuori dalla tastiera a schermo viene mostrata nell'ottava visibile.
+  function fold(m) {
+    if (m >= lo && m <= hi) return m;
+    if (!KS.settings.get('anyOctave')) return m;
+    let x = m;
+    while (x < lo) x += 12;
+    while (x > hi) x -= 12;
+    return x >= lo ? x : m;
+  }
+  function setTargets(list) { targets = new Set(list.map(fold)); applyTargets(); }
   function lock(v) { locked = v; }
 
   KS.input.on((ev) => {
@@ -109,5 +118,19 @@ KS.keyboard = (() => {
   });
   KS.settings.onChange((k) => { if (k === 'keyLabels' || k === 'names') render(); });
 
-  return { render, setRange, setTargets, lock, range: () => [lo, hi] };
+  // Tastiera di 25 tasti centrata sulle note date (per canzoni con note molto distanti).
+  function fitTo(notes) {
+    if (!notes.length) { setRange(48, 72); return; }
+    const sorted = notes.slice().sort((a, b) => a - b);
+    const min = sorted[0];
+    const max = sorted[sorted.length - 1];
+    let start = Math.floor(min / 12) * 12;
+    if (max - start > 24) {
+      const med = sorted[Math.floor(sorted.length / 2)];
+      start = Math.floor(med / 12) * 12 - 12;
+    }
+    setRange(start, start + 24);
+  }
+
+  return { render, setRange, setTargets, fitTo, lock, range: () => [lo, hi] };
 })();
